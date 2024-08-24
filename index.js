@@ -1,6 +1,7 @@
 const express = require("express");
 
 const { users } = require("./data/user.json");
+const { books } = require("./data/books.json");
 
 const app = express();
 
@@ -59,6 +60,13 @@ app.post("/users",(req,res)=>{
     })
 })
 
+/* 
+   Route : /users/:id,
+   Method : GET,
+   Description : Getting user by their ID.
+   Parameters : ID.
+*/
+
 //Here ":id" is way of getting any params in route
 app.get("/users/:id",(req,res)=>{
     const {id} = req.params;
@@ -72,6 +80,56 @@ app.get("/users/:id",(req,res)=>{
     res.status(200).json({
         success:true,
         data: user
+    })
+});
+
+/* 
+   Route : /users/:id,
+   Method : PUT,
+   Description : Updating user by their ID.
+   Parameters : ID.
+*/
+
+app.put("/users/:id",(req,res)=>{
+    const { id } = req.params;    // Request to the server to check the id
+    const { data } = req.body     // Request the data to the server which i need to update.
+    
+    const user = users.find((each)=> each.id === id)
+
+    if(!user){
+     return res.status(404).json({
+            success:false,
+            message: "User Id dosen't exists"
+        })
+    }
+    const updateUserData = users.map((each)=>{
+        if(each.id === id){
+        return{
+            ...each,  // '...' is the spread operator used in JS arrays to access all the elements (here accessing each elements) 
+            ...data   // here accessing the only datas which the user need to update (which we give in body section).
+          }
+        }
+        return each;
+    })
+    res.status(200).json({
+        success:true,
+        message:"Updated user data successfully",
+        data: updateUserData
+    })
+
+})
+
+/* 
+   Route : /books,
+   Method : GET,
+   Description : Getting all the books.
+   Parameters : none.
+*/
+
+app.get("/books",(req,res)=>{
+    res.status(200).json({
+        success:true,
+        bookData:books 
     })
 })
 

@@ -27,12 +27,12 @@ Subscription date is also been missed >> and also missed the renewal >> 100 + 50
 # Routes and Endpoints
 
 ## /users
-POST: Create a new user
-GET: Getting the user informations.
+>> POST: Create a new user 
+>> GET: Getting the user informations.
 
 ## /users/{id}
-GET: Get the user info by ID
-POST: Update a user by their ID
+>> GET: Get the user info by ID
+>> PUT: Update a user by their ID
 DELETE: Delete a user by id (check if he/she still have an issued book) && (is there any fine to paid)
 
 ## /users/subscription-details/{id}
@@ -42,8 +42,8 @@ GET: Get user subscription details
          >> Is there any fine
 
 ## /books
-GET: Get all the books
-POST: Create/Add a new book
+>> GET: Get all the books
+POST: Create/Add a new book 
 
 ## /books/{id}
 GET: Get a book by id
