@@ -1,10 +1,10 @@
 const express = require("express");
 
-// const { users } = require("./data/user.json");
-// const { books } = require("./data/books.json");
+const { users } = require("./data/user.json");   // This manages the datas(acting like a database)
+const { books } = require("./data/books.json");   // This manages the datas(acting like a database)
 
-const  userRouter  = require("./routes/user.js");
-const  booksRouter = require("./routes/books.js");
+const  userRouter  = require("./routes/user.js");    //This is for routing 
+const  booksRouter = require("./routes/books.js");    //This is for routing 
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.get("/",(req,res)=>{
 });
 
 app.use("/users",userRouter);
-// app.use("/books",booksRouter);
+app.use("/books",booksRouter);
 
 
 app.get("*",(req,res)=>{

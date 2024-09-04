@@ -1,5 +1,5 @@
 const express = require("express");
-const { users } = require("../data/user.json");
+const { users } = require("../data/user.json");  //This line is for handling the user datas
 
 const router = express.Router();
 
@@ -95,7 +95,7 @@ router.put("/:id",(req,res)=>{
         if(each.id === id){
         return{
             ...each,  // '...' is the spread operator used in JS arrays to access all the elements (here accessing each elements) 
-            ...data   // here accessing the only datas which the user need to update (which we give in body section).
+            ...data   // here accessing only the datas which the user need to update (which we give in body section).
           }
         }
         return each;
