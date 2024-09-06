@@ -7,7 +7,7 @@ Server  >> Storing certain book data
 
 This is a book record management API server/ Backend for the library system or management of records or books.
 
-Fine System:
+Ex:  Fine System:
 User: 06/03/2023 - 06/06/2023
 if he is returning on -> 09/06/2023 => 50*3=150/-
 
@@ -43,7 +43,7 @@ GET: Get user subscription details
 
 ## /books
 >> GET: Get all the books
->> POST: Create/Add a new book 
+>> POST: Create/Add a new book
 
 ## /books/{id}
 >> GET: Get a book by id
