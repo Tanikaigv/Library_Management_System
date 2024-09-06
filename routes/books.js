@@ -80,5 +80,29 @@ router.get("/:id",(req,res)=>{
     });
 })
 
+/* 
+   Route : /books/id,
+   Method : POST,
+   Description : Creating new books.
+   Parameters : none.
+*/
+
+router.post("/",(req,res)=>{
+    const { id,name,author,genre,price,publisher} = req.body;
+    books.push({
+        id,
+        name,
+        author,
+        genre,
+        price,
+        publisher
+    })
+    return res.status(200).json({
+        success: true,
+        message: "Book created successfully",
+        data: books
+    })
+});
+
 
 module.exports = router;
