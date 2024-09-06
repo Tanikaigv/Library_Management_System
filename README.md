@@ -43,7 +43,7 @@ GET: Get user subscription details
 
 ## /books
 >> GET: Get all the books
-POST: Create/Add a new book 
+>> POST: Create/Add a new book 
 
 ## /books/{id}
 >> GET: Get a book by id
