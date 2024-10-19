@@ -26,34 +26,24 @@ router.get("/books",(req,res)=>{
 */
 
 router.get("/issued",(req,res)=>{
-    const userWithBookIssued = users.filter((each)=>{
+    const userWithIssuedBooks = users.filter((each)=>{
         if(each.issuedbook) return each;
     });
-
-    const issuedbooks = [];     //To store all the users with the issued books ,the issuedDate and the returnDate.
-
-    userWithBookIssued.forEach((each)=>{
-        const book = books.find((book)=> (book.id === each.issuedbook));
+    const booksIssued = [];
+    userWithIssuedBooks.forEach((each)=>{
+        const book = books.find((book)=>book.id === each.issuedbook);
         book.issuedBy = each.name;
         book.issuedDate = each.issuedDate;
         book.returnDate = each.returnDate;
 
-        issuedbooks.push(book)
-        
-    })
-
-    if(issuedbooks.length === 0){
-        return res.status(404).json({
-            success:false,
-            message:"No books have been issued yet"
-        })
-    }
-    return res.status(200).json({
-        success:true,
-        message:"User with issued books",
-        data:issuedbooks
+        booksIssued.push(book);
     });
-});
+    res.status(200).json({
+        success:"true",
+        message:"All Issued Books are displayed",
+        data:booksIssued
+    });
+})
 
 
 
