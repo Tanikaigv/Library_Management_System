@@ -50,7 +50,7 @@ GET: Get user subscription details
 PUT: Update a book by id
 
 ## /books/issued
-GET: Get all issued books
+>> GET: Get all issued books
 
 ## /books/issued/withfine
 GET: Get all the issued books with their fine.

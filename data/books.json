@@ -17,7 +17,7 @@
             "publisher":"Houghton Mifflin"
         },
         {
-            "id":"1",
+            "id":"3",
             "name":"The Hobbit",
             "author":"J.R.R. Tolkien",
             "genre": "Fantasy",
@@ -25,7 +25,7 @@
             "publisher":"Houghton Mifflin"
         },
         {
-            "id":"3",
+            "id":"4",
             "name":"The Land Before Time",
             "author":"Alan Moore",
             "genre": "Fantasy",
