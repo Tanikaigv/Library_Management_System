@@ -168,6 +168,28 @@ router.get("/subscription-details/:id",(req,res)=>{
         }
         return date;
     }
+    const returnDate = DateinDays(user.returnDate);
+    const currDate = DateinDays();
+    const subscriptionDate = DateinDays(user.subscriptionDate);
+    const subscriptionExpire = subscriptionType(subscriptionDate);
+
+    const data = {
+        ...user,
+        isSubscriptionEnd : subscriptionExpire <= currDate,
+        daysLeftForExpire:
+        subscriptionExpire <= currDate ? 0 : subscriptionExpire - currDate,
+        fine : 
+        returnDate <= currDate ? 
+            subscriptionExpire <= currDate
+               ?100
+               :50
+        :0
+    }
+    return res.status(200).json({
+        success:true,
+        message:"Subscription details for user is:",
+        data,
+    })
 })
 
 

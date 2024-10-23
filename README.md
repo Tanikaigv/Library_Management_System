@@ -33,10 +33,10 @@ Subscription date is also been missed >> and also missed the renewal >> 100 + 50
 ## /users/{id}
 >> GET: Get the user info by ID
 >> PUT: Update a user by their ID
-DELETE: Delete a user by id (check if he/she still have an issued book) && (is there any fine to paid)
+>> DELETE: Delete a user by id (check if he/she still have an issued book) && (is there any fine to paid)
 
 ## /users/subscription-details/{id}
-GET: Get user subscription details
+>> GET: Get user subscription details
          >> Date of Subscription
          >> valid till
          >> Is there any fine
