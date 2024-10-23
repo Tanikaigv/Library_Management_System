@@ -130,4 +130,45 @@ router.delete("/:id",(req,res)=>{
     return res.status(200).json({success:true,message:"User deleted succesfully",data: users});
 });
 
+/* 
+   Route : /users/subscription-details/:id,
+   Method : GET,
+   Description : Getting the users' subscription details.
+   Parameters : ID.
+*/
+router.get("/subscription-details/:id",(req,res)=>{
+    const {id} = req.params;
+    const user = users.find((each)=> each.id === id);
+    if(!user){
+        res.status(400).json({
+            success:false,
+            message:"User with this ID not found"
+        });
+    }
+    const DateinDays = (data = "") =>{
+        let date;
+        if(data == ""){
+            date = new Date();  
+        }
+        else{
+            date = new Date(data);
+        }
+        let days = Math.floor(date/(1000*60*60*24));
+        return days;
+    }
+    const subscriptionType = (date)=>{
+        if(user.subscriptionType === "Basic"){
+            date += 90;
+        }
+        else if(user.subscriptionType === "Standard"){
+            date += 180;
+        }
+        else if(user.subscriptionType === "Premium"){
+            date += 365;
+        }
+        return date;
+    }
+})
+
+
 module.exports = router;
