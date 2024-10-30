@@ -1,14 +1,18 @@
 const express = require("express");          //Getting the Express package
 
-const { users } = require("./data/user.json");   // This manages the datas(acting like a database)
-const { books } = require("./data/books.json");   // This manages the datas(acting like a database)
+const dotenv = require("dotenv");
+const DbConnection = require("./dataBaseConnection.js")
+
 
 const  userRouter  = require("./routes/user.js");    //This is for routing 
 const  booksRouter = require("./routes/books.js");    //This is for routing 
 
+
+dotenv.config();
 const app = express();                       // Initialization of Express
 
-const PORT = 8081;
+DbConnection();
+const PORT = 8082;
 app.use(express.json());                     // Using the express
 
 app.get("/",(req,res)=>{
