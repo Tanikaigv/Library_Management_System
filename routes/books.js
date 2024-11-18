@@ -1,8 +1,14 @@
 const express = require("express");
-const { books } = require("../data/books.json");
-const { users } = require("../data/user.json");
+
+const {UserModel,BookModel} = require("../models/index");
+
+const {GetAllBooks,GetBookById} = require("../controllers/book-controller");
+
+// const { books } = require("../data/books.json");
+// const { users } = require("../data/user.json");
 
 const router = express.Router();
+
 
 /* 
    Route : /books,
@@ -11,12 +17,7 @@ const router = express.Router();
    Parameters : none.
 */
 
-router.get("/",(req,res)=>{
-    res.status(200).json({
-        success:true,
-        bookData:books 
-    })
-})
+router.get("/",GetAllBooks);
 
 
 /* 
@@ -26,21 +27,7 @@ router.get("/",(req,res)=>{
    Parameters : Id.
 */
 
-router.get("/:id",(req,res)=>{
-    const { id } = req.params;
-    const book = books.find((each)=> each.id === id);
-    if(!book){
-        return res.status(404).json({
-            success: false,
-            message: "Book with this id doesn't exists"
-        })
-    }
-    return res.status(200).json({
-        success:true,
-        message: "Book exists",
-        data: book
-    });
-})
+router.get("/:id",GetBookById);
 
 /* 
    Route : /books/issued,

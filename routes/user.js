@@ -1,4 +1,7 @@
 const express = require("express");
+
+const {UserModel,BookModel} = require("../models/index");
+
 const { users } = require("../data/user.json");  //This line is for handling the user datas
 
 const router = express.Router();
