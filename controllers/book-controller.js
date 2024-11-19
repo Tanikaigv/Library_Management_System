@@ -1,6 +1,8 @@
 const {UserModel,BookModel} = require("../models/index");
 
-exports.GetAllBooks = async(req,res) => {
+const IssuedBook = require("../dtos/book-dto");
+
+exports.getAllBooks = async(req,res) => {
     const book = await BookModel.find();
     if(book.length === 0){
         return res.status(404).json({
@@ -15,7 +17,7 @@ exports.GetAllBooks = async(req,res) => {
     })
 }
 
-exports.GetBookById = async(req,res) => {
+exports.getBookById = async(req,res) => {
     const { id } = req.params;
     const book = await BookModel.findById(id);
     if(!book){
@@ -29,4 +31,40 @@ exports.GetBookById = async(req,res) => {
         message: "Book exists",
         data: book
     });
+}
+
+exports.getAllIssuedBooks = async(req,res) => {
+    const users = await UserModel.find({
+        issuedBook: {$exists:true}
+    }).populate("issuedBook");
+
+    const issuedBooks = users.map((each)=> new IssuedBook(each));
+    if(issuedBooks.length === 0){
+        return res.status(404).json({
+            success:false,
+            message:"There is no books Issued"
+        })
+    }
+    res.status(200).json({
+        success:"true",
+        message:"All Issued Books are displayed",
+        data:issuedBooks
+    });
+}
+
+exports.addNewBook = async(req,res) => {
+    const {data} = req.body;
+    const book = books.find((each)=> each.id === data.id)
+    if(book){
+        return res.status(400).json({
+            success:false,
+            message:"Book with this ID already Exists",
+        })
+    }
+    const allBooks = {...books,data};
+    return res.status(200).json({
+        success:true,
+        message:"Book Created Successfully",
+        data:allBooks
+    })
 }

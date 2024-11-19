@@ -2,7 +2,10 @@ const express = require("express");
 
 const {UserModel,BookModel} = require("../models/index");
 
-const {GetAllBooks,GetBookById} = require("../controllers/book-controller");
+const {getAllBooks,
+    getBookById,
+    getAllIssuedBooks,
+    addNewBook} = require("../controllers/book-controller");
 
 // const { books } = require("../data/books.json");
 // const { users } = require("../data/user.json");
@@ -17,7 +20,7 @@ const router = express.Router();
    Parameters : none.
 */
 
-router.get("/",GetAllBooks);
+router.get("/",getAllBooks);
 
 
 /* 
@@ -27,7 +30,7 @@ router.get("/",GetAllBooks);
    Parameters : Id.
 */
 
-router.get("/:id",GetBookById);
+router.get("/:id",getBookById);
 
 /* 
    Route : /books/issued,
@@ -36,25 +39,7 @@ router.get("/:id",GetBookById);
    Parameters : None.
 */
 
-router.get("/issued",(req,res)=>{
-    const userWithIssuedBooks = users.filter((each)=>{
-        if(each.issuedbook) return each;
-    });
-    const booksIssued = [];
-    userWithIssuedBooks.forEach((each)=>{
-        const book = books.find((book)=>book.id === each.issuedbook);
-        book.issuedBy = each.name;
-        book.issuedDate = each.issuedDate;
-        book.returnDate = each.returnDate;
-
-        booksIssued.push(book);
-    });
-    res.status(200).json({
-        success:"true",
-        message:"All Issued Books are displayed",
-        data:booksIssued
-    });
-})
+router.get("/issued",getAllIssuedBooks);
 
 
 /* 
@@ -64,22 +49,7 @@ router.get("/issued",(req,res)=>{
    Parameters : none.
 */
 
-router.post("/",(req,res)=>{
-    const {data} = req.body;
-    const book = books.find((each)=> each.id === data.id)
-    if(book){
-        return res.status(400).json({
-            success:false,
-            message:"Book with this ID already Exists",
-        })
-    }
-    const allBooks = {...books,data};
-    return res.status(200).json({
-        success:true,
-        message:"Book Created Successfully",
-        data:allBooks
-    })
-})
+router.post("/",addNewBook);
 
 /* 
    Route : /books/id,
