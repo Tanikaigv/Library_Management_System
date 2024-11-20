@@ -53,18 +53,36 @@ exports.getAllIssuedBooks = async(req,res) => {
 }
 
 exports.addNewBook = async(req,res) => {
-    const {data} = req.body;
-    const book = books.find((each)=> each.id === data.id)
-    if(book){
-        return res.status(400).json({
-            success:false,
-            message:"Book with this ID already Exists",
-        })
-    }
-    const allBooks = {...books,data};
+    const { data } = req.body;
+    
+    await BookModel.create(data);
+    const allBooks = await BookModel.find();
     return res.status(200).json({
         success:true,
         message:"Book Created Successfully",
         data:allBooks
+    })
+}
+
+exports.updateBookById = async (req,res) => {
+    const { id } = req.params;
+    const { data } = req.body;
+
+    if(!data){
+        return res.status(400).json({
+            success:false,
+            message:"No datas to Update"
+        })
+    }
+
+    const updatedBook = await BookModel.findOneAndUpdate({
+        _id: id,
+    },data,{
+        new:true
+    })
+    return res.status(200).json({
+        success:true,
+        message:"Book updated Successfully",
+        data: updatedBook
     })
 }
