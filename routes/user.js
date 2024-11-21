@@ -2,7 +2,8 @@ const express = require("express");
 
 const {UserModel,BookModel} = require("../models/index");
 
-const { users } = require("../data/user.json");  //This line is for handling the user datas
+const {getAllUsers} = require("../controllers/user-controller");
+// const { users } = require("../data/user.json");  This line is for handling the user datas
 
 const router = express.Router();
 
@@ -14,12 +15,7 @@ const router = express.Router();
    Parameters : none
 */
 
-router.get("/",(req,res)=>{
-    res.status(200).json({
-        success: true,
-        data : users
-    })
-})
+router.get("/",getAllUsers);
 
 /* 
    Route : /users,
